@@ -27,7 +27,7 @@ export class AuthService {
 
     if (!isEmailValid) throw new UserInputError('Email Address invalid');
 
-    const existingUser = await this.userService.findOne({ email });
+    const existingUser = await this.userService.doesEmailExist(email);
 
     if (existingUser) {
       throw new UserInputError('Email address has already been taken!');

@@ -20,10 +20,10 @@ export class UserResolver {
     return this.userService.findAll();
   }
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => User, { name: 'user', nullable: true })
   findOne(
     @Args('input', { type: () => SearchUserInput }) input: SearchUserInput,
-  ): Promise<User> | null {
+  ): Promise<User> {
     return this.userService.findOne(input);
   }
 

@@ -31,7 +31,7 @@ type LoginPayload {
 type Query {
   post(id: Int!): Post!
   comment(id: Int!): Comment!
-  user(input: SearchUserInput!): User!
+  user(input: SearchUserInput!): User
 }
 
 type User implements Node {

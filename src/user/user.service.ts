@@ -19,6 +19,12 @@ export class UserService {
     return `This action returns all users`;
   }
 
+  async doesEmailExist(email: string): Promise<boolean> {
+    const user = await this.userModel.findOne({ email });
+    if (!user) return false;
+    return true;
+  }
+
   async findOne(
     searchFields: Pick<SearchUserInput, 'email' | 'firstName' | 'lastName'>,
   ): Promise<UserDocument> {
