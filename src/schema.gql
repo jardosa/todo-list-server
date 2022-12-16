@@ -31,6 +31,8 @@ type LoginPayload {
 type Query {
   post(id: Int!): Post!
   comment(id: Int!): Comment!
+  ping: String!
+  whoAmI: User!
   user(input: SearchUserInput!): User
 }
 
@@ -42,6 +44,7 @@ type User implements Node {
 }
 
 input SearchUserInput {
+  _id: String
   firstName: String
   lastName: String
   email: String
@@ -54,7 +57,9 @@ type Mutation {
   createComment(createCommentInput: CreateCommentInput!): Comment!
   updateComment(updateCommentInput: UpdateCommentInput!): Comment!
   removeComment(id: Int!): Comment!
+  echo(message: String!): String!
   register(registerInput: CreateUserInput!): LoginPayload!
+  login(email: String!, password: String!): LoginPayload!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!

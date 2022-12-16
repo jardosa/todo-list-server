@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server-express';
 import { User, UserDocument } from './schema/user.schema';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -25,11 +26,16 @@ export class UserService {
     return true;
   }
 
-  async findOne(
-    searchFields: Pick<SearchUserInput, 'email' | 'firstName' | 'lastName'>,
-  ): Promise<UserDocument> {
-    const { email } = searchFields;
-    const user = await this.userModel.findOne({ email });
+  async findOne(searchFields: SearchUserInput): Promise<UserDocument> {
+    if (!Object.keys(searchFields).length) {
+      throw new UserInputError('Provide at least 1 search criteria');
+    }
+    const user = await this.userModel.findOne({
+      ...(searchFields._id && { _id: searchFields._id }),
+      ...(searchFields.email && { email: searchFields.email }),
+      ...(searchFields.firstName && { firstName: searchFields.firstName }),
+      ...(searchFields.lastName && { lastName: searchFields.lastName }),
+    });
     return user;
   }
 

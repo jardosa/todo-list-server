@@ -1,8 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
-import Node from 'src/base/entities/Node';
 
 @InputType()
-export class SearchUserInput extends Node {
+export class SearchUserInput {
+  @Field({ nullable: true })
+  _id?: string;
+
   @Field({ nullable: true })
   firstName?: string;
 

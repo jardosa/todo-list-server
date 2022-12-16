@@ -10,11 +10,13 @@ import config from './config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver } from '@nestjs/apollo';
+import { DefaultResolverModule } from './default-resolvers/default-resolver.module';
 
 @Module({
   imports: [
     PostModule,
     CommentModule,
+    DefaultResolverModule,
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

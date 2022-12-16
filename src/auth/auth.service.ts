@@ -2,7 +2,7 @@ import { CreateUserInput } from './../user/dto/create-user.input';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserInputError } from 'apollo-server-express';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import config from 'src/config';
 import { UserService } from 'src/user/user.service';
 import validateEmail from 'src/utils/validateEmail';
@@ -56,6 +56,24 @@ export class AuthService {
         firstName: newUser.firstName,
         email: newUser.email,
       },
+    };
+  }
+
+  async login(email: string, password: string): Promise<LoginPayload> {
+    const user = await this.userService.findOne({ email });
+
+    if (!user) throw new UserInputError('Invalid login credentials');
+
+    const isMatched = await compare(password, user.password);
+
+    if (!isMatched) throw new UserInputError('Invalid login credentials');
+
+    return {
+      authToken: this.jwtService.sign(
+        { i: user._id.toString() },
+        { secret: config.JWT_SECRET },
+      ),
+      profile: user,
     };
   }
 }

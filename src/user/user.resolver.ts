@@ -22,7 +22,8 @@ export class UserResolver {
 
   @Query(() => User, { name: 'user', nullable: true })
   findOne(
-    @Args('input', { type: () => SearchUserInput }) input: SearchUserInput,
+    @Args('input', { type: () => SearchUserInput })
+    input: SearchUserInput,
   ): Promise<User> {
     return this.userService.findOne(input);
   }
