@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Comment {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Profile implements Node {
+  _id: ID!
+  firstName: String
+  lastName: String
+  email: String!
+}
+
+interface Node {
+  _id: ID!
+}
+
+type LoginPayload {
+  authToken: String!
+  profile: Profile!
+}
+
+type Query {
+  post(id: Int!): Post!
+  comment(id: Int!): Comment!
+  user(input: SearchUserInput!): User!
+}
+
+type User implements Node {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
+input SearchUserInput {
+  firstName: String
+  lastName: String
+  email: String
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+  removeComment(id: Int!): Comment!
+  register(registerInput: CreateUserInput!): LoginPayload!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+}
+
+input CreatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  id: Int!
+}
