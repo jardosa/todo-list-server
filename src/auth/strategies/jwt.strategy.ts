@@ -11,15 +11,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       usernameField: 'email',
       passwordField: 'password',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
       signOptions: {
-        expiresIn: 3600,
+        expiresIn: 3600 * 24 * config.EXPIRATION_IN_DAYS,
       },
       secretOrKey: config.JWT_SECRET,
     });
   }
 
   async validate(payload) {
-    return { _id: payload._id, email: payload.username };
+    return { _id: payload.i };
   }
 }

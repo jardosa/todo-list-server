@@ -6,6 +6,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { Model } from 'mongoose';
 import { SearchUserInput } from './dto/search-user-input';
+import { SearchUsersInput } from './dto/search-users-input';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,13 @@ export class UserService {
     return createdUser.save();
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(searchFields: SearchUsersInput) {
+    const users = await this.userModel.find({
+      ...(searchFields.firstName && { firstName: searchFields.firstName }),
+      ...(searchFields.lastName && { lastName: searchFields.lastName }),
+    });
+
+    return users;
   }
 
   async doesEmailExist(email: string): Promise<boolean> {
@@ -39,11 +45,20 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(
+    _id: string,
+    updateUserInput: UpdateUserInput,
+  ): Promise<UserDocument> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      _id,
+      updateUserInput,
+      { new: true },
+    );
+    return updatedUser;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(_id: string): Promise<UserDocument> {
+    const deletedUser = await this.userModel.findByIdAndDelete(_id);
+    return deletedUser;
   }
 }

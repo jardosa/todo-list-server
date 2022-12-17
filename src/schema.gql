@@ -2,16 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-type Comment {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type Profile implements Node {
   _id: ID!
   firstName: String
@@ -29,11 +19,41 @@ type LoginPayload {
 }
 
 type Query {
-  post(id: Int!): Post!
-  comment(id: Int!): Comment!
+  posts(searchInput: SearchPostsInput!): [Post!]!
+  post(_id: ID!): Post!
+  users(input: SearchUsersInput!): [User!]!
+  user(input: SearchUserInput!): User
+  comments(searchInput: SearchCommentsInput!): [Comment!]!
+  comment(_id: ID!): Comment
   ping: String!
   whoAmI: User!
-  user(input: SearchUserInput!): User
+}
+
+type Post {
+  _id: ID!
+  title: String!
+  description: String!
+  status: String!
+  userId: ID!
+  comments(searchInput: SearchCommentsInputNoID): [Comment!]!
+}
+
+type Comment {
+  _id: ID!
+  postId: ID!
+  body: String!
+  userId: ID!
+}
+
+input SearchCommentsInputNoID {
+  limit: Float = 10
+  offset: Float = 0
+}
+
+input SearchPostsInput {
+  userId: ID!
+  limit: Float = 10
+  offset: Float = 0
 }
 
 type User implements Node {
@@ -43,6 +63,13 @@ type User implements Node {
   email: String!
 }
 
+input SearchUsersInput {
+  firstName: String
+  lastName: String
+  limit: Float = 10
+  offset: Float = 0
+}
+
 input SearchUserInput {
   _id: String
   firstName: String
@@ -50,41 +77,44 @@ input SearchUserInput {
   email: String
 }
 
+input SearchCommentsInput {
+  postId: ID!
+  limit: Float = 10
+  offset: Float = 0
+}
+
 type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
+  removePost(_id: ID!): Post!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(_id: ID!): User!
   createComment(createCommentInput: CreateCommentInput!): Comment!
   updateComment(updateCommentInput: UpdateCommentInput!): Comment!
-  removeComment(id: Int!): Comment!
+  removeComment(_id: ID!): Comment!
   echo(message: String!): String!
   register(registerInput: CreateUserInput!): LoginPayload!
   login(email: String!, password: String!): LoginPayload!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
 }
 
 input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  description: String!
 }
 
 input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  title: String
+  description: String
+  _id: ID!
+  status: PostStatus!
 }
 
-input CreateCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+enum PostStatus {
+  NotStarted
+  InProgress
+  Completed
+  NotCompleted
 }
 
 input CreateUserInput {
@@ -99,5 +129,15 @@ input UpdateUserInput {
   lastName: String
   email: String
   password: String
-  id: Int!
+  _id: ID!
+}
+
+input CreateCommentInput {
+  postId: ID!
+  body: String!
+}
+
+input UpdateCommentInput {
+  _id: ID!
+  body: String!
 }
