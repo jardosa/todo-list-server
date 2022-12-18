@@ -18,10 +18,12 @@ export class UserService {
   }
 
   async findAll(searchFields: SearchUsersInput) {
-    const users = await this.userModel.find({
-      ...(searchFields.firstName && { firstName: searchFields.firstName }),
-      ...(searchFields.lastName && { lastName: searchFields.lastName }),
-    });
+    const users = await this.userModel
+      .find({
+        ...(searchFields?.firstName && { firstName: searchFields.firstName }),
+        ...(searchFields?.lastName && { lastName: searchFields.lastName }),
+      })
+      .sort({ _id: 'descending' });
 
     return users;
   }

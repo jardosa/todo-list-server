@@ -21,7 +21,7 @@ type LoginPayload {
 type Query {
   posts(searchInput: SearchPostsInput!): [Post!]!
   post(_id: ID!): Post!
-  users(input: SearchUsersInput!): [User!]!
+  users(input: SearchUsersInput): [User!]!
   user(input: SearchUserInput!): User
   comments(searchInput: SearchCommentsInput!): [Comment!]!
   comment(_id: ID!): Comment

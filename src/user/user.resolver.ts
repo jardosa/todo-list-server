@@ -20,6 +20,7 @@ export class UserResolver {
   findAll(
     @Args('input', {
       type: () => SearchUsersInput,
+      nullable: true,
     })
     input: SearchUsersInput,
   ) {
