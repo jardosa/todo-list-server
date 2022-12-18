@@ -19,7 +19,7 @@ export class Post extends Node {
   description: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => PostStatus)
   status: PostStatus;
 
   @Prop()

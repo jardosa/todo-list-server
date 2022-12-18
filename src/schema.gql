@@ -33,9 +33,16 @@ type Post {
   _id: ID!
   title: String!
   description: String!
-  status: String!
+  status: PostStatus!
   userId: ID!
   comments(searchInput: SearchCommentsInputNoID): [Comment!]!
+}
+
+enum PostStatus {
+  NotStarted
+  InProgress
+  Completed
+  NotCompleted
 }
 
 type Comment {
@@ -108,13 +115,6 @@ input UpdatePostInput {
   description: String
   _id: ID!
   status: PostStatus!
-}
-
-enum PostStatus {
-  NotStarted
-  InProgress
-  Completed
-  NotCompleted
 }
 
 input CreateUserInput {
