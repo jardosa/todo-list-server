@@ -5,6 +5,7 @@ import { UpdatePostInput } from './dto/update-post.input';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './schema/post.schema';
 import { Model } from 'mongoose';
+import { PostStatus } from './enums/post.enum';
 
 @Injectable()
 export class PostService {
@@ -14,7 +15,11 @@ export class PostService {
     userId: string,
     createPostInput: CreatePostInput,
   ): Promise<PostDocument> {
-    const newPost = await this.postModel.create({ ...createPostInput, userId });
+    const newPost = await this.postModel.create({
+      ...createPostInput,
+      userId,
+      status: PostStatus.NotStarted,
+    });
     return newPost;
   }
 
