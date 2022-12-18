@@ -23,6 +23,7 @@ export class PostService {
       .find({
         ...(searchInput.userId && { userId: searchInput.userId }),
       })
+      .sort({ _id: 'descending' })
       .limit(searchInput.limit)
       .skip(searchInput.offset);
     return posts;

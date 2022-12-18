@@ -19,7 +19,7 @@ export class Post extends Node {
   description: string;
 
   @Prop()
-  @Field(() => PostStatus)
+  @Field(() => PostStatus, { defaultValue: PostStatus.NotStarted })
   status: PostStatus;
 
   @Prop()
@@ -31,12 +31,3 @@ export class Post extends Node {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
-
-export const PostFactory = () => {
-  const schema = PostSchema;
-  schema.post('save', async function setStatus() {
-    this.set('status', PostStatus.NotStarted);
-    this.save();
-  });
-  return schema;
-};
