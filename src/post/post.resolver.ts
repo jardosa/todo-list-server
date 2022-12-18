@@ -68,7 +68,7 @@ export class PostResolver {
       type: () => SearchCommentsInputNoID,
       nullable: true,
     })
-    searchInput: SearchCommentsInput,
+    searchInput?: SearchCommentsInputNoID,
   ): Promise<Comment[]> {
     const { _id } = post;
     const comments = await this.commentService.findAll({
