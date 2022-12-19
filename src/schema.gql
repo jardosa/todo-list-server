@@ -2,8 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Profile implements Node {
+type Profile implements Node & TimeStamps {
   _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String
   lastName: String
   email: String!
@@ -12,6 +14,16 @@ type Profile implements Node {
 interface Node {
   _id: ID!
 }
+
+interface TimeStamps {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type LoginPayload {
   authToken: String!
@@ -29,8 +41,10 @@ type Query {
   whoAmI: User!
 }
 
-type Post {
+type Post implements Node & TimeStamps {
   _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   description: String!
   status: PostStatus!
@@ -45,8 +59,10 @@ enum PostStatus {
   NotCompleted
 }
 
-type Comment {
+type Comment implements Node & TimeStamps {
   _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   postId: ID!
   body: String!
   userId: ID!
@@ -63,8 +79,10 @@ input SearchPostsInput {
   offset: Float = 0
 }
 
-type User implements Node {
+type User implements Node & TimeStamps {
   _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   email: String!
