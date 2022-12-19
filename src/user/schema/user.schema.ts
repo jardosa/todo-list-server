@@ -8,7 +8,7 @@ export type UserDocument = HydratedDocument<User>;
 
 @ObjectType({ isAbstract: true, implements: [Node, TimeStamps] })
 @Schema({ timestamps: true })
-export class User extends Node {
+export class User extends Node implements Node {
   @Prop()
   @Field()
   firstName: string;
