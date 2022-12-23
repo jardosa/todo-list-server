@@ -26,6 +26,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Prerequisites
+Using this app requires that user has MongoDB installed.
+Link here for installation guide: https://www.mongodb.com/try/download/shell
+
+Also required is NodeJS and NPM which you can find through these links:
+- NodeJS: https://nodejs.org/en/download/
+- NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
 ## Installation
 
 ```bash
@@ -38,7 +46,7 @@ $ npm install
 # development
 $ npm run start
 
-# watch mode
+# watch mode (RECOMMENDED COMMAND TO USE)
 $ npm run start:dev
 
 # production mode
